@@ -14,6 +14,7 @@
 		152FB5C2144D1DF800B60925 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 152FB5C1144D1DF800B60925 /* main.m */; };
 		152FB5C5144D1DF800B60925 /* HomepwnerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 152FB5C4144D1DF800B60925 /* HomepwnerAppDelegate.m */; };
 		152FB5C8144D1DF800B60925 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 152FB5C6144D1DF800B60925 /* MainWindow.xib */; };
+		15C257EE144F17E60052014E /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C257ED144F17E60052014E /* HeaderView.xib */; };
 		15D70810144E77C4002C26FE /* Possession.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D7080F144E77C4002C26FE /* Possession.m */; };
 		15D7081B144E787C002C26FE /* PossessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D7081A144E787C002C26FE /* PossessionStore.m */; };
 		15F43C7F144DC26200650F2A /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C7E144DC26200650F2A /* ItemsViewController.m */; };
@@ -31,6 +32,7 @@
 		152FB5C3144D1DF800B60925 /* HomepwnerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomepwnerAppDelegate.h; sourceTree = "<group>"; };
 		152FB5C4144D1DF800B60925 /* HomepwnerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomepwnerAppDelegate.m; sourceTree = "<group>"; };
 		152FB5C7144D1DF800B60925 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		15C257ED144F17E60052014E /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		15D7080E144E77C4002C26FE /* Possession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Possession.h; sourceTree = "<group>"; };
 		15D7080F144E77C4002C26FE /* Possession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Possession.m; sourceTree = "<group>"; };
 		15D70819144E787C002C26FE /* PossessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PossessionStore.h; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		152FB5BA144D1DF800B60925 /* Homepwner */ = {
 			isa = PBXGroup;
 			children = (
+				15C257ED144F17E60052014E /* HeaderView.xib */,
 				15D70819144E787C002C26FE /* PossessionStore.h */,
 				15D7081A144E787C002C26FE /* PossessionStore.m */,
 				15D7080E144E77C4002C26FE /* Possession.h */,
@@ -157,6 +160,7 @@
 			files = (
 				152FB5BF144D1DF800B60925 /* InfoPlist.strings in Resources */,
 				152FB5C8144D1DF800B60925 /* MainWindow.xib in Resources */,
+				15C257EE144F17E60052014E /* HeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

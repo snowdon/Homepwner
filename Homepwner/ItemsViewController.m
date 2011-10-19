@@ -39,10 +39,51 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                    reuseIdentifier:@"UITableViewCell"] autorelease];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    // if there is no reusable cell, create a new one
+    if (!cell)
+    {
+        cell = [[[UITableViewCell alloc] 
+                                  initWithStyle:UITableViewCellStyleDefault
+                                reuseIdentifier:@"UITableViewCell"] autorelease];
+    }
+    
     Possession *p = [[[PossessionStore defaultStore] allPossessions] objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:[p description]];
     return cell;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [self headerView];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [[self headerView] bounds].size.height;
+}
+
+- (UIView *) headerView
+{
+    if (!headerView) {
+        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
+    }
+    
+    return headerView;
+}
+
+- (IBAction)toggleEditingMode:(id)sender
+{
+    // if we currently in editing mode...
+    if ([self isEditing]){
+        [sender setTitle:@"Edit" forState:UIControlStateNormal];
+        [self setEditing:NO animated:YES];
+        
+    } else {
+        [sender setTitle:@"Done" forState:UIControlStateNormal];
+        [self setEditing:YES animated:YES];
+    }
+    
+}
+
 @end

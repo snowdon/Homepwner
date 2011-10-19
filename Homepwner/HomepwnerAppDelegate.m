@@ -7,6 +7,7 @@
 //
 
 #import "HomepwnerAppDelegate.h"
+#import "ItemsViewController.h"
 
 @implementation HomepwnerAppDelegate
 
@@ -16,6 +17,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    ItemsViewController *itemsViewController = [[ItemsViewController alloc] init];
+    
+    [[self window] setRootViewController:itemsViewController];
+    
+    [itemsViewController release];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

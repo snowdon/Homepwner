@@ -13,6 +13,11 @@ static PossessionStore *defaultStore = nil;
 
 @implementation PossessionStore
 
+- (void)removePossession:(Possession *)p
+{
+    [allPossessions removeObjectIdenticalTo:p];
+}
+
 + (PossessionStore *)defaultStore
 {
     if(!defaultStore) {

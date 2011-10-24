@@ -12,15 +12,17 @@
 
 @implementation ItemsViewController
 
+- (IBAction)addNewPossession:(id)sender
+{
+    [[PossessionStore defaultStore] createPossession];
+    
+    [[self tableView] reloadData];
+}
+
+
 - (id)init
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
-    
-    if (self) {
-        for (int i = 0; i < 10; i++) {
-            [[PossessionStore defaultStore] createPossession];
-        }
-    }
     
     return self;
 }
@@ -62,6 +64,21 @@
 {
     return [[self headerView] bounds].size.height;
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        PossessionStore *ps = [PossessionStore defaultStore];
+        NSArray *possessions = [ps allPossessions];
+        Possession *p = [possessions objectAtIndex:[indexPath row]];
+        [ps removePossession:p];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:YES];
+    }
+}
+
 
 - (UIView *) headerView
 {

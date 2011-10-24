@@ -60,6 +60,14 @@
     return [self headerView];
 }
 
+- (void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)fromIndexPath 
+       toIndexPath:(NSIndexPath *)toIndexPath
+{
+    [[PossessionStore defaultStore] movePossessionAtIndex:[fromIndexPath row]
+                                                  toIndex:[toIndexPath row]];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return [[self headerView] bounds].size.height;

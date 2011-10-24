@@ -13,6 +13,26 @@ static PossessionStore *defaultStore = nil;
 
 @implementation PossessionStore
 
+- (void)movePossessionAtIndex:(int)from
+                      toIndex:(int)to
+{
+    if (from == to)
+    {
+        return;
+    }
+    
+    Possession *p = [allPossessions objectAtIndex:from];
+    [p retain];
+    
+    [allPossessions removeObjectAtIndex:from];
+    
+    [allPossessions insertObject:p atIndex:to];
+    
+    [p release];
+    
+}
+
+
 - (void)removePossession:(Possession *)p
 {
     [allPossessions removeObjectIdenticalTo:p];

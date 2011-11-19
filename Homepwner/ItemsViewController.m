@@ -6,6 +6,7 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+
 #import "ItemsViewController.h"
 #import "Possession.h"
 #import "PossessionStore.h"
@@ -24,6 +25,18 @@
 {
     self = [super initWithStyle:UITableViewStyleGrouped];
     
+    if (self) {
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+           initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                target:self 
+                                action:@selector(addNewPossession:)];
+        [[self navigationItem] setRightBarButtonItem:bbi];
+    
+        [bbi release];
+    
+        [[self navigationItem] setTitle:@"Homepwner"];
+        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
+    }
     return self;
 }
 
@@ -55,10 +68,6 @@
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return [self headerView];
-}
 
 - (void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)fromIndexPath 
@@ -68,10 +77,6 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
                                                   toIndex:[toIndexPath row]];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return [[self headerView] bounds].size.height;
-}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -109,6 +114,17 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
         [self setEditing:YES animated:YES];
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ItemDetailViewController *detailViewController = [[[ItemDetailViewController alloc] init] autorelease];
+    
+    NSArray *possession = [[PossessionStore defaultStore] allPossessions];
+    
+    [detailViewController setPossession:[possession objectAtIndex:[indexPath row]]];
+    
+    [[self navigationController] pushViewController:detailViewController animated:YES];
 }
 
 @end

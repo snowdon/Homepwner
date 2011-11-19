@@ -19,9 +19,15 @@
     // Override point for customization after application launch.
     ItemsViewController *itemsViewController = [[ItemsViewController alloc] init];
     
-    [[self window] setRootViewController:itemsViewController];
+    // Create an instance of a UINavigationController
     
-    [itemsViewController release];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:itemsViewController];
+    
+     [itemsViewController release];
+    
+    [[self window] setRootViewController:navController];
+    
+   
     
     [self.window makeKeyAndVisible];
     return YES;

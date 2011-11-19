@@ -127,4 +127,10 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self tableView] reloadData];
+}
+
 @end

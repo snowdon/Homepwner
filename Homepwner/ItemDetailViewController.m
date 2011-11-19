@@ -60,5 +60,17 @@
     [[self navigationController] setTitle:[possession possessionName]];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[self view] endEditing:YES];
+    
+    [possession setPossessionName:[nameField text]];
+    [possession setSerialNumber:[serialNumberField text]];
+    [possession setValueInDollars:[[ValueField text] intValue]];
+     
+}
+
 
 @end

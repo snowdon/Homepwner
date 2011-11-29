@@ -20,6 +20,7 @@
     [ValueField release];
     [dateLabel release];
     [possession release];
+    [imageView release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -32,6 +33,8 @@
     ValueField = nil;
     [dateLabel release];
     dateLabel = nil;
+    [imageView release];
+    imageView = nil;
     [super viewDidUnload];
 }
 
@@ -72,5 +75,31 @@
      
 }
 
+
+- (IBAction)takePicture:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    } else {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    [imagePicker setDelegate:self];
+    
+    [self presentModalViewController:imagePicker animated:YES];
+    
+    [imagePicker release];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [imageView setImage:image];
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 @end

@@ -10,7 +10,9 @@
 
 @class Possession;
 
-@interface ItemDetailViewController : UIViewController {
+@interface ItemDetailViewController : UIViewController 
+<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+{
     
     IBOutlet UITextField *nameField;
     
@@ -20,10 +22,13 @@
    
     IBOutlet UILabel *dateLabel;
     
+    IBOutlet UIImageView *imageView;
+    
     Possession *possession;
     
 }
 
 @property (nonatomic, retain) Possession *possession;
+- (IBAction)takePicture:(id)sender;
 
 @end

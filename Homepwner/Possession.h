@@ -6,6 +6,7 @@
     NSString *serialNumber;
     int valueInDollars;
     NSDate *dateCreated;
+    NSString *imageKey;
 }
 
 + (id)randomPossession;
@@ -20,5 +21,6 @@
 @property (nonatomic, copy) NSString *serialNumber;
 @property (nonatomic) int valueInDollars;
 @property (nonatomic, readonly) NSDate *dateCreated;
+@property (nonatomic, copy) NSString *imageKey;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ItemDetailViewController.h"
 #import "Possession.h"
+#import "ImageStore.h"
 
 @implementation ItemDetailViewController 
 
@@ -61,6 +62,17 @@
     [dateLabel setText:[dateFormatter stringFromDate:[possession dateCreated]]];
     
     [[self navigationController] setTitle:[possession possessionName]];
+    
+    NSString *imageKey = [possession imageKey];
+    
+    if (imageKey) {
+        UIImage *imageToDisplay = 
+            [[ImageStore defaultImageStore] imageForKey:imageKey];
+        [imageView setImage:imageToDisplay];
+    } else {
+        [imageView setImage:nil];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -93,13 +105,43 @@
     
 }
 
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    NSString *oldKey = [possession imageKey];
+    
+    if (oldKey) {
+        [[ImageStore defaultImageStore] deleteImageForKey:oldKey];
+    }
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
+    
+    CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
+    
+    [possession setImageKey:(NSString *)newUniqueIDString];
+    
+    CFRelease(newUniqueIDString);
+    CFRelease(newUniqueID);
+    
+    [[ImageStore defaultImageStore] setImage:image 
+                                      forKey:[possession imageKey]];
     
     [imageView setImage:image];
     
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (IBAction)backgroundTapped:(id)sender
+{
+    [[self view] endEditing:YES];
 }
 
 @end

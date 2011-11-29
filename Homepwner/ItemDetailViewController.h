@@ -11,7 +11,8 @@
 @class Possession;
 
 @interface ItemDetailViewController : UIViewController 
-<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+<UINavigationControllerDelegate, UIImagePickerControllerDelegate, 
+ UITextFieldDelegate>
 {
     
     IBOutlet UITextField *nameField;
@@ -30,5 +31,8 @@
 
 @property (nonatomic, retain) Possession *possession;
 - (IBAction)takePicture:(id)sender;
+
+- (IBAction)backgroundTapped:(id)sender;
+
 
 @end

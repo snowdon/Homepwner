@@ -15,9 +15,25 @@
 
 - (IBAction)addNewPossession:(id)sender
 {
-    [[PossessionStore defaultStore] createPossession];
+    Possession *newPossession = [[PossessionStore defaultStore] createPossession];
+    ItemDetailViewController *detailViewController = 
+    [[ItemDetailViewController alloc] initForNewItem:YES];
     
-    [[self tableView] reloadData];
+    [detailViewController setPossession:newPossession];
+    
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:detailViewController];
+    
+    [detailViewController release];
+    
+    //navController is retained by self when presented
+    
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    
+    [self presentModalViewController:navController animated:YES];
+    
+    [navController release];
+    
 }
 
 
@@ -118,7 +134,7 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ItemDetailViewController *detailViewController = [[[ItemDetailViewController alloc] init] autorelease];
+    ItemDetailViewController *detailViewController = [[[ItemDetailViewController alloc] initForNewItem:NO] autorelease];
     
     NSArray *possession = [[PossessionStore defaultStore] allPossessions];
     

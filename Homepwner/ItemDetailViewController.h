@@ -12,7 +12,7 @@
 
 @interface ItemDetailViewController : UIViewController 
 <UINavigationControllerDelegate, UIImagePickerControllerDelegate, 
- UITextFieldDelegate>
+ UITextFieldDelegate, UIPopoverControllerDelegate>
 {
     
     IBOutlet UITextField *nameField;
@@ -27,6 +27,8 @@
     
     Possession *possession;
     
+    UIPopoverController *imagePickerPopover;
+    
 }
 
 @property (nonatomic, retain) Possession *possession;
@@ -34,5 +36,6 @@
 
 - (IBAction)backgroundTapped:(id)sender;
 
+- (id)initForNewItem:(BOOL)isNew;
 
 @end

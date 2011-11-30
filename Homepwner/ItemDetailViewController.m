@@ -9,6 +9,7 @@
 #import "ItemDetailViewController.h"
 #import "Possession.h"
 #import "ImageStore.h"
+#import "PossessionStore.h"
 
 @implementation ItemDetailViewController 
 
@@ -109,7 +110,19 @@
     
     [imagePicker setDelegate:self];
     
-    [self presentModalViewController:imagePicker animated:YES];
+    // Place image picker on the screen
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        imagePickerPopover = [[UIPopoverController alloc]
+                              initWithContentViewController:imagePicker];
+        
+        [imagePickerPopover setDelegate:self];
+        
+        [imagePickerPopover presentPopoverFromBarButtonItem:sender
+                                   permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                   animated:YES];
+    } else {
+        [self presentModalViewController:imagePicker animated:YES];
+    }
     
     [imagePicker release];
     
@@ -140,7 +153,14 @@
     
     [imageView setImage:image];
     
-    [self dismissModalViewControllerAnimated:YES];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self dismissModalViewControllerAnimated:YES];
+    } else {
+        [imagePickerPopover dismissPopoverAnimated:YES];
+        [imagePickerPopover autorelease];
+        imagePickerPopover = nil;
+    }
+    
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
@@ -163,5 +183,54 @@
     }
 }
 
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    NSLog(@"User dismissed popover");
+    [imagePickerPopover autorelease];
+    imagePickerPopover = nil;
+}
+
+- (id)initForNewItem:(BOOL)isNew
+{
+    self = [super initWithNibName:@"ItemDetailViewController" bundle:nil];
+    
+    if (self) {
+        if (isNew) {
+            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc]
+                                         initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                         target:self
+                                         action:@selector(save:)];
+            [[self navigationItem] setRightBarButtonItem:doneItem];
+            [doneItem release];
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                           target:self
+                                           action:@selector(cancel:)];
+            [[self navigationItem] setLeftBarButtonItem:cancelItem];
+            [cancelItem release];
+        }
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    @throw [NSException exceptionWithName:@"Wrong initializer"
+                                   reason:@"Use initForNewItem:"
+                                 userInfo:nil];
+    return nil;
+}
+
+- (IBAction)save:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)cancel:(id)sender
+{
+    [[PossessionStore defaultStore] removePossession:possession];
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 @end

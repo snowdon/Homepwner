@@ -133,4 +133,13 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
     [[self tableView] reloadData];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;        
+    } else {
+        return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+    }
+}
+
 @end

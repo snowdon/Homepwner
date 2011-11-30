@@ -14,6 +14,7 @@
 @implementation ItemDetailViewController 
 
 @synthesize possession;
+@synthesize delegate;
 
 - (void)dealloc {
     [nameField release];
@@ -224,6 +225,8 @@
 - (IBAction)save:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES];
+    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
+        [delegate itemDetailViewControllerWillDismiss:self];
 }
 
 - (IBAction)cancel:(id)sender
@@ -231,6 +234,9 @@
     [[PossessionStore defaultStore] removePossession:possession];
     
     [self dismissModalViewControllerAnimated:YES];
+    
+    if([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
+        [delegate itemDetailViewControllerWillDismiss:self];
 }
 
 @end

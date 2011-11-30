@@ -29,8 +29,11 @@
     //navController is retained by self when presented
     
     [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     
     [self presentModalViewController:navController animated:YES];
+    
+    [detailViewController setDelegate:self];
     
     [navController release];
     
@@ -156,6 +159,11 @@ moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
     } else {
         return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
     }
+}
+
+- (void)itemDetailViewControllerWillDismiss:(ItemDetailViewController *)vc
+{
+    [[self tableView] reloadData];
 }
 
 @end

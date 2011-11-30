@@ -6,6 +6,15 @@
 //  Copyright (c) 2011年 __MyCompanyName__. All rights reserved.
 //
 
+@class ItemDetailViewController;
+
+@protocol ItemDetailViewControllerDelegate <NSObject>
+
+@optional
+- (void)itemDetailViewControllerWillDismiss:(ItemDetailViewController *)vc;
+
+@end
+
 #import <UIKit/UIKit.h>
 
 @class Possession;
@@ -37,5 +46,7 @@
 - (IBAction)backgroundTapped:(id)sender;
 
 - (id)initForNewItem:(BOOL)isNew;
+
+@property (nonatomic, assign) id<ItemDetailViewControllerDelegate> delegate;
 
 @end

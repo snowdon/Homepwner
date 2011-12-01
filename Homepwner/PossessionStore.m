@@ -8,6 +8,7 @@
 
 #import "PossessionStore.h"
 #import "Possession.h"
+#import "ImageStore.h"
 
 static PossessionStore *defaultStore = nil;
 
@@ -35,6 +36,9 @@ static PossessionStore *defaultStore = nil;
 
 - (void)removePossession:(Possession *)p
 {
+    NSString *key = [p imageKey];
+    [[ImageStore defaultImageStore] deleteImageForKey:key];
+    
     [allPossessions removeObjectIdenticalTo:p];
 }
 
@@ -139,5 +143,7 @@ static PossessionStore *defaultStore = nil;
     }
     return self;
 }
+
+
 
 @end

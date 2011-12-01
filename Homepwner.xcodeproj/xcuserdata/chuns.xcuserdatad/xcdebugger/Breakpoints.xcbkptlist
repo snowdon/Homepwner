@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Homepwner/PossessionStore.m"
-         timestampString = "344404438.218726"
+         timestampString = "344406057.78805"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
          landmarkName = "-initWithCoder:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -58,11 +58,10 @@ static PossessionStore *defaultStore = nil;
         return defaultStore;
     }
     self = [super init];
-    if (self) {
-        allPossessions = [[NSMutableArray alloc] init];
-    }
-    
+   
     return self;
+    
+    
 }
 
 - (id)retain
@@ -83,16 +82,62 @@ static PossessionStore *defaultStore = nil;
 
 - (NSArray *)allPossessions
 {
+    [self fetchPossessionsIfNecessary];
+    
     return allPossessions;
 }
 
 - (Possession *)createPossession
 {
+    [self fetchPossessionsIfNecessary];
+    
     Possession *p = [Possession randomPossession];
     
     [allPossessions addObject:p];
     
     return p;
+}
+
+- (NSString *)possessionArchivePath
+{
+    return pathInDocumentDirectory(@"possessions.data");
+}
+
+- (BOOL)saveChanges
+{
+    return [NSKeyedArchiver archiveRootObject:allPossessions
+                                       toFile:[self possessionArchivePath]];
+}
+
+- (void)fetchPossessionsIfNecessary
+{
+    if (!allPossessions) {
+        NSString *path = [self possessionArchivePath];
+        allPossessions = [[NSKeyedUnarchiver unarchiveObjectWithFile:path] retain];
+        
+        if (!allPossessions) {
+            allPossessions = [[NSMutableArray alloc] init];
+        }
+    }
+}
+
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    
+    if (self) {
+        [self setPossessionName:[decoder decodeObjectForKey:@"possessionName"]];
+        [self setSerialNumber:[decoder decodeObjectForKey:@"sericalNumber"]];
+        [self setImageKey:[decoder decodeObjectForKey:@"imageKey"]];
+        
+        [self setValueInDollars:[decoder decodeIntForKey:@"valueInDollars"]];
+        
+    //    dateCreated = [[decoder decodeObjectForKey:@"dateCreated"] retain];
+
+        
+    }
+    return self;
 }
 
 @end

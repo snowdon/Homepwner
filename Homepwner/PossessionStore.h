@@ -25,5 +25,11 @@
 - (void)movePossessionAtIndex:(int)from
                       toIndex:(int)to;
 
+- (NSString *)possessionArchivePath;
+
+- (BOOL)saveChanges;
+
+- (void)fetchPossessionsIfNecessary;
+
 
 @end

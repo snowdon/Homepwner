@@ -89,6 +89,19 @@
                             dateCreated];
 }
 
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:possessionName forKey:@"possessionName"];
+    [aCoder encodeObject:serialNumber forKey:@"serialNumber"];
+    [aCoder encodeObject:dateCreated forKey:@"dateCreated"];
+    [aCoder encodeObject:imageKey forKey:@"imageKey"];
+    
+    [aCoder encodeInt:valueInDollars forKey:@"valueInDollars"];
+    
+    
+}
+
+
 - (void)dealloc
 {
     [possessionName release];
